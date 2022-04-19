@@ -13235,12 +13235,6 @@ JSDraw2.Toolbar = scil.extend(scil._base, {
             if (buttons.length > 0)
                 buttons.push({ c: "|" });
 
-            if (!this.options.appmode) {
-                selecttools.push({ c: "copy", t: "Copy", label: "Copy" });
-                selecttools.push({ c: "cut", t: "Cut", label: "Cut" });
-                selecttools.push({ c: "paste", t: "Paste", label: "Paste" });
-            }
-
             buttons.push({ c: "select", t: "Box Selection", label: "Box", sub: selecttools });
             buttons.push({ c: "center", t: "Move to center", label: "Center", sub: smallscreen ? null : [{ c: "zoomin", t: "Zoom in", label: "Zoom" }, { c: "zoomout", t: "Zoom out", label: "Zoom" }, { c: "rotate", t: "Rotate", label: "Rotate" }, { c: "fliph", t: "Flip Horizontal", label: "Flip" }, { c: "flipv", t: "Flip Vertical", label: "Flip"}] });
             buttons.push({ c: "moveview", t: "Move/View", label: "Move", sub: [{ c: "zoombox", t: "Zoom Box", label: "Zoom"}] });
