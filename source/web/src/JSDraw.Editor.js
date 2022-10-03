@@ -368,7 +368,7 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
                 this.connectHandlers.push(dojo.connect(document, 'onkeydown', function (e) { me.keydown(e); }));
                 this.connectHandlers.push(dojo.connect(this.div, 'onmousedown', function (e) { me.mousedown(e); }));
                 this.connectHandlers.push(dojo.connect(this.div, 'onmousemove', function (e) { me.mousemove(e); }));
-                this.connectHandlers.push(dojo.connect(this.div, 'onmouseup', function (e) { me.mouseup(e); }));
+                this.connectHandlers.push(dojo.connect(document, 'onmouseup', function (e) { me.mouseup(e); }));
                 if (scil.Utils.isFirefox)
                     this.connectHandlers.push(dojo.connect(this.div, 'onwheel', function (e) { me.mousewheel(e); }));
                 else
@@ -389,7 +389,7 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
             if (!scil.Utils.isTouch) {
                 this.connectHandlers.push(dojo.connect(this.div, 'onmousedown', function (e) { me.mousedown(e, true); }));
                 this.connectHandlers.push(dojo.connect(this.div, 'onmousemove', function (e) { me.mousemove(e, true); }));
-                this.connectHandlers.push(dojo.connect(this.div, 'onmouseup', function (e) { me.mouseup(e, true); }));
+                this.connectHandlers.push(dojo.connect(document, 'onmouseup', function (e) { me.mouseup(e, true); }));
                 if (scil.Utils.isFirefox)
                     this.connectHandlers.push(dojo.connect(this.div, 'DOMMouseScroll', function (e) { me.mousewheel(e); }));
                 else
@@ -2014,7 +2014,7 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
             if (this.mousedownPoint != null && this.mousedownPoint.x == e.clientX && this.mousedownPoint.y == e.clientY)
                 this.activate(true);
             if (viewonly && e.button == 0) {
-                this.endMove(e, viewonly);
+                this.endMove(viewonly);
                 e.preventDefault();
             }
             return;
@@ -2023,7 +2023,7 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
         var cmd = this.getCmd();
 
         if (cmd == "moveview") {
-            this.endMove(e, viewonly);
+            this.endMove(viewonly);
             e.preventDefault();
             return;
         }
@@ -2757,12 +2757,11 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
         this.refresh(false);
     },
 
-    endMove: function (e, viewonly) {
+    endMove: function (viewonly) {
         if (this.start == null)
             return;
 
-        var p = this.eventPoint(e);
-        var d = new JSDraw2.Point(p.x - this.start.x, p.y - this.start.y);
+        var d = this.viewoffset;
         this.start = null;
         this.moveview(null);
 
