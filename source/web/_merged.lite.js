@@ -17188,7 +17188,7 @@ JSDraw2.Editor = scilligence.extend(scilligence._base, {
         this.start = null;
         this.moveview(null);
 
-        if (d.x != 0 || d.y != 0) {
+        if (d != null && (d.x != 0 || d.y != 0)) {
             if (!viewonly)
                 this.pushundo();
             this.m.offset(d.x, d.y);
